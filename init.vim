@@ -1,67 +1,94 @@
-:set number
-:set relativenumber
-:set autoindent
-:set tabstop=4
-:set shiftwidth=4
-:set smarttab
-:set softtabstop=4
-:set mouse=a
+" --- General 
+
+let mapleader = " "
+
+set termguicolors
+set tabstop=4 
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set smartindent
+set number
+set numberwidth=1
+set relativenumber
+set signcolumn=yes
+set noswapfile
+set nobackup
+set undodir=~/AppData/Local/Temp/nvim/undodir
+set undofile
+set incsearch
+set nohlsearch
+set ignorecase
+set smartcase
+set nowrap
+set splitbelow
+set splitright
+set hidden
+set scrolloff=999
+set noshowmode
+set updatetime=250 
+set encoding=UTF-8
+set fileencoding=UTF-8
+set mouse=a
+
+
+" --- Plugins
 
 call plug#begin()
 
-Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
-Plug 'https://github.com/preservim/nerdtree' " NerdTree
-Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
-Plug 'https://github.com/vim-airline/vim-airline' " Status bar
-Plug 'https://github.com/lifepillar/pgsql.vim' " PSQL Pluging needs :SQLSetType pgsql.vim
-Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
-Plug 'https://github.com/rafi/awesome-vim-colorschemes' " Retro Scheme
-Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}  " Auto Completion
-Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
-Plug 'https://github.com/tc50cal/vim-terminal' " Vim Terminal
-Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
-Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
+" General
+Plug 'kyazdani42/nvim-web-devicons'                " Devicons
+Plug 'nvim-lualine/lualine.nvim'                   " Status line
+Plug 'machakann/vim-highlightedyank'               " Highlight yanked text
+Plug 'kyazdani42/nvim-tree.lua'                    " File explorer
+Plug 'gruvbox-community/gruvbox'                    "Colorscheme
+"Plug 'folke/tokyonight.nvim', { 'branch': 'main' } " Color scheme
 
-set encoding=UTF-8
+
+
+" Lsp
+Plug 'neovim/nvim-lspconfig'     
+Plug 'williamboman/nvim-lsp-installer'
+
+
+" Autocompletion
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 call plug#end()
 
-nnoremap <C-f> :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-l> :call CocActionAsync('jumpDefinition')<CR>
+lua require('okank')
 
-nmap <F8> :TagbarToggle<CR>
 
-:set completeopt-=preview " For No Previews
+"Colors
 
-:colorscheme jellybeans
+set background=dark
+colorscheme gruvbox
 
-let g:NERDTreeDirArrowExpandable="+"
-let g:NERDTreeDirArrowCollapsible="~"
 
-" --- Just Some Notes ---
-" :PlugClean :PlugInstall :UpdateRemotePlugins
-"
-" :CocInstall coc-python
-" :CocInstall coc-clangd
-" :CocInstall coc-snippets
-" :CocCommand snippets.edit... FOR EACH FILE TYPE
+" --- Remaps
 
-" air-line
-let g:airline_powerline_fonts = 1
+nnoremap <leader>h :wincmd h<Cr>
+nnoremap <leader>j :wincmd j<Cr>
+nnoremap <leader>k :wincmd k<Cr>
+nnoremap <leader>l :wincmd l<Cr>
+nnoremap <silent><leader>[ :BufferLineCyclePrev<Cr>
+nnoremap <silent><leader>] :BufferLineCycleNext<Cr>
+nnoremap <silent><leader>q :bdelete<Cr>
 
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
 
-" airline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
+" --- Autocommands
 
-inoremap <expr> <Tab> pumvisible() ? coc#_select_confirm() : "<Tab>"
+" Remove vert split 
+" https://www.reddit.com/r/vim/comments/effwku/transparent_vertical_bar_in_vim/
+" https://gist.github.com/romainl/379904f91fa40533175dfaec4c833f2f
+set fillchars=vert:\  " there is whitespace after the backslash
+augroup RemoveVertSplit
+    autocmd!
+    autocmd BufEnter,ColorScheme * highlight VertSplit ctermfg=1 ctermbg=None cterm=None
+augroup END
