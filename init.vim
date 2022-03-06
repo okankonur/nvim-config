@@ -58,7 +58,11 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+
+"Search file
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
 
 call plug#end()
 
