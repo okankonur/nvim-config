@@ -70,6 +70,8 @@ Plug 'junegunn/fzf.vim'
 "Syntax Highlighting
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
+"Formatting
+Plug 'sbdchd/neoformat'
 
 call plug#end()
 
@@ -82,15 +84,12 @@ set background=dark
 colorscheme gruvbox
 
 
-" --- Remaps
+" ----------  Normal Mode Remaps ---------
 
 nnoremap <leader>h :wincmd h<Cr>
 nnoremap <leader>j :wincmd j<Cr>
 nnoremap <leader>k :wincmd k<Cr>
 nnoremap <leader>l :wincmd l<Cr>
-nnoremap <silent><leader>[ :BufferLineCyclePrev<Cr>
-nnoremap <silent><leader>] :BufferLineCycleNext<Cr>
-nnoremap <silent><leader>q :bdelete<Cr>
 
 
 " Find files using Telescope command-line sugar.
@@ -99,6 +98,12 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
+"----------- Insert Mode Remaps ------------
+
+" Automatically closing braces
+inoremap {<CR> {<CR>}<Esc>ko<tab>
+inoremap ( ()<Esc>ha
+inoremap [ []<Esc>ha
 
 
 " --- Autocommands
