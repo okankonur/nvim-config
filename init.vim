@@ -24,12 +24,11 @@ set splitbelow
 set splitright
 set hidden
 set scrolloff=999
-set noshowmode
 set updatetime=250 
 set encoding=UTF-8
 set fileencoding=UTF-8
 set mouse=a
-
+set showcmd
 
 " --- Plugins
 
@@ -43,12 +42,11 @@ Plug 'kyazdani42/nvim-tree.lua'                    " File explorer
 Plug 'gruvbox-community/gruvbox'                    "Colorscheme
 "Plug 'folke/tokyonight.nvim', { 'branch': 'main' } " Color scheme
 
-
+Plug 'nvim-tree/nvim-tree.lua'
 
 " Lsp
-Plug 'neovim/nvim-lspconfig'     
 Plug 'williamboman/mason.nvim'
-Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'neovim/nvim-lspconfig'
 
 " Autocompletion
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -90,12 +88,17 @@ nnoremap <leader>j :wincmd j<Cr>
 nnoremap <leader>k :wincmd k<Cr>
 nnoremap <leader>l :wincmd l<Cr>
 
-
 " Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fd <cmd>Telescope fd<cr>
+
+" NvimTree remaps
+" open tree
+nnoremap <leader>t <cmd>NvimTreeOpen<cr>  
+nnoremap <leader>q <cmd>NvimTreeClose<cr>
 
 "----------- Insert Mode Remaps ------------
 
